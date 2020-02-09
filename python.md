@@ -1,11 +1,11 @@
-# Numbers
+## Numbers
 
 * The / operator always returns a float
 * The // does integer division
 * The ** operator calculates powers. For example  2 ** 3 is 8
 * In interactive mode _ stores the last printed expression
 
-# Strings
+## Strings
 
 * " or ' can be both used for string literals
 * use print() to print a string
@@ -24,7 +24,7 @@
 * strings are immutable
 * len(s) returns the length of the string s
 
-# Lists
+## Lists
 
 * [1, 2, 3, 4] is a list
 * like strings, they can be indexed and sliced
@@ -35,7 +35,7 @@
 * len(l) returns the length of the list
 * lists can be nested
 
-# First steps
+## First steps
 
 * fibonacci
 ```python
@@ -58,7 +58,7 @@ elif x == 1:
 else:
 	print('more')
 ```
-# For
+## For
 ```python
 l = [1, 2, 3]
 for n in l:
@@ -75,20 +75,20 @@ for n in l:
    one. These objects are called iterables
 * list(range(4)) gets a list from a range
 
-# break, continue and else on Loops
+## break, continue and else on Loops
 
 * loops can have an else clause, which is executed once the loop has reaches
    exhaustion, but not when the loop is terminated by a break statement
 * the continue statement skips to the next iteration of the loop
 
-# pass Statement
+## pass Statement
 
 * pass does nothing
 * can be used when a statement is required syntactically but the program
    requires no action
 * can be used as placeholder when working on new code
 
-# Functions
+## Functions
 
 * defining a fibonacci function
 ```python
@@ -107,6 +107,116 @@ def fib(n):
 * functions can be assigned to variables
 * the return statement is used to return a value from a function
 
-# More on Defining Functions
+## More on Defining Functions
 
+* variadic functions can be defined
+* a default value can be specified for one or more arguments
+```python
+def ask_ok(prompt, retries=4, reminder='Please try again!')
+	while True:
+		ok = input(prompt)
+		if ok in ('y', 'ye', 'yes'):
+			return True
+		if ok in ('n', 'no', 'nop', 'nope'):
+			return False
+		retries = retries - 1
+		if retries < 0:
+			raise ValueError('invalid response')
+		print(reminder)
+```
+* the in keyword tests whether or not a sequence contains a value
+* the default values are evaluated at the point of function definition in the
+  defining scope
+* the default value is evauated only once, so object references are shared
+* functions can be called using arg=value, like this
+```python
+parrot('a thousand', action='VOOOOM', voltage=1000000)
+```
+* in a function call, keyword arguments must follow positional arguments
+* keyword arguments order is irrelevant
+* no argument may receive a value more than once
+* when a final formal parameter of the form **name is present, it receives
+  a dictionary containing all keyword arguments except for those corresponding
+  to a formal parameter
+* this may be combined with a formal parameter of the form *name which receives
+  a tuple containing the positional arguments beyond the formal parameter list
+* *name must occour before **name
+* is good practice to restrict the way arguments can be passed as follows
+```python
+def f(pos1, pos2, /, pos_or_keyword, *, keyword1, keyword2):
+```
+* positional only parameters are placed before a /
+* parameters following / may be positional-or-keyword or keyword-only
+* to mark paramters keyword-only place a * in the argument list just before the
+  first keyword-only parameter
+* the names of positional-only parameters can be used in **name without 
+  ambiguity
+* for an API, use positional-only parameters to prevent breaking API changes
+  if the parameter's name is modified in the future
+* to specify that a function can be called with an arbitrary number of
+  arguments use *args and they will be wrapped into a tuple
+```python
+def write_multiple_items(file, separator, *args):
+	file.write(separator.join(args))
+```
+* any formal parameter that occurs after the *args parameter is a keyword-only
+  parameter
+* sometimes the parameters are in a list or tuple and need to be unpacked
+```python
+args = [3, 6]
+list(range(*args))
+```
+* in the same fashion, dictionaries can deliver keyword arguments with the **
+  operator
 
+### Lambda Expressions
+
+* use the lambda keyword to create small anonymous fucntions
+* lambda functions can be used whenever a function object is required
+* lambda functions can reference variables from the containing scope
+```python
+def make_incrementor(n):
+	return lambda x: x + n
+
+f = make_incrementor(42)
+f(0)	# is 42
+f(1)	# is 43
+```
+### Documentation Strings
+
+* the first line should always be a short and concise summary of the object's
+  purpose
+* don't state the object name and type since these should be clear
+* should begin with a capital letter and end with a period
+* if there are more lines, the line following the first, should be blank,
+  visually separating the summary from the description
+
+### Function annotations
+
+* annotations add optional metadata
+* are stored in the __annotations__ attribute of the function as a dictionary
+* parameter annotations are defined by a colon after the parameter name,
+  followed by an expression evaluating to the value of the annotation
+* Return annotation are defined with ->, followed by an expression, between the
+  parameter list and the colon ending the def statement
+* an example
+```python
+def f(ham: str, eggs: str = 'eggs') -> str:
+	print("Annotations: ", f.__annotations__)
+	print("Arguments: ", ham, eggs)
+	return ham + ' and ' + eggs
+```
+## Coding style
+
+* use 4 space indentations and no tabs
+* wrap lines to not excede 79 characters
+* use blank lines to separate functions and classes and larger bloks of code
+  inside functions
+* put comments on a line of their own, when possible
+* use docstrings
+* use spaces around operators and after a comma
+* name functions and classes consistently
+* use UpperCamelCase for classes
+* use snake_case for functions and methods
+* always use self as the name of the first method argument
+* more on [PEP 8](https://www.python.org/dev/peps/pep-0008/)
