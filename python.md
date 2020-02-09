@@ -10,8 +10,8 @@
 * " or ' can be both used for string literals
 * use print() to print a string
 * with """ or ''' a string can span multiple lines
-* + concatenates strings
-* * repeats strings
+* \+ concatenates strings
+* \* repeats strings
 * two or more string literals next to each other are concatenated
 * strings are indexed, starting from 0, using [index]
 * negative indices start from the bottom, using [#index]
