@@ -301,6 +301,7 @@ matrix = [
 
 [[row[i] for row in matrix] for i in range(4)]
 # is [[1, 5, 9], [2, 6, 10], [3, 7, 11], 4, 8, 12]]
+```
 * in the real world, prefer built in functions to complex flow statements
 * the following has the same result of the previous code
 ```python
