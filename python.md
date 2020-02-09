@@ -220,3 +220,101 @@ def f(ham: str, eggs: str = 'eggs') -> str:
 * use snake_case for functions and methods
 * always use self as the name of the first method argument
 * more on [PEP 8](https://www.python.org/dev/peps/pep-0008/)
+
+# Data Structures
+
+## Lists
+
+* `list.append(x)` adds an item to the end of the list
+* `list.extend(iterable)` extends the list by appending all the items form
+  the iterable
+* `list.insert(i, x)` inserts x at the given position
+* `list.remove(x)` removes the first item from the list whose value is equal to
+  x
+* `list.pop(i)` removes the item at the given position. If no argument is
+  passed, it removes the last element of the list
+* `list.clear()` removes all itmes
+* `list.index(x, start, end)` returns zero-based index of the first item in the
+  list that is equal to x. The arguments start and end are optional and are
+  used to limit the search to a particular sublist of the list. The returned 
+  index is computed relative to the beginning of the list
+* `list.count(x)` return the number of times x appears in the list
+* `list.sort(key=None, reverse=False)` sorts the items of the list in place
+* `list.reverse()` reverses the list in place
+* `list.copy()` returns a shallow copy of the list
+* all methods that modify the list return None. This is a design principle for
+  all mutable data structures in Python
+
+### Using Lists as Stacks
+
+* to add an item to the top of the stack, use `append()`
+* to retrieve an item from the top use `pop()`
+
+### Using Lists as Queues
+
+* lists are not efficient for this purpose
+* appends and pops are fast
+* inserts and pops at the beginning of a list is slow
+* to implement a queue use `collections.deque` which was designed to have fast
+  appends and pops from both ends
+
+### List Comprehensions
+
+* are a concise way to create lists
+* a list of sqaures
+```python
+squares = list(map(lambda x: x**2, range(10)))
+```
+* or
+```python
+squares = [x**2 for x in range(10)]
+```
+* a list comprehension contains an expression followed by a for clause, then
+  zero or more for or if clauses. The result will be a new list resulting from
+  evaluating the expression in the context of the for and if clauses that
+  follows
+* for example
+```python
+[(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
+# is [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+```
+* mapping
+```python
+[x*2 for x in vec]
+```
+* filtering
+```python
+[x for x in vect if x >= 0]
+```
+* list comprehensions can contain complex expressions and nested functions
+
+### Nested list comprehensions
+
+* The initial expression in a list comprehension can be any arbitrary
+  expression, including another list comprehension
+```python
+matrix = [
+	[1, 2, 3, 4],
+	[5, 6, 7, 8],
+	[9, 10, 11, 12],
+]
+
+[[row[i] for row in matrix] for i in range(4)]
+# is [[1, 5, 9], [2, 6, 10], [3, 7, 11], 4, 8, 12]]
+* in the real world, prefer built in functions to complex flow statements
+* the following has the same result of the previous code
+```python
+list(zip(*matrix))
+```
+
+## The `del` statement
+
+* the del statement removes an item from a list given its index instead of the
+  value
+```python
+del a[0]
+```
+* dal can be used to remove slices
+* del can be used to delete variables
+
+## Tuples and Sequences
