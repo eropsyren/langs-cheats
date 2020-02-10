@@ -406,3 +406,102 @@ basket = {`apple`, `orange`, `apple`, `pear`, `orange`, `banana`}
 * if two items to be compared are themselves sequences of the same type, the
   lexicographical comparison is carried out recursively
 
+# Modules
+
+* a module is a file containing definitions and statements
+* definitions from a module can be imported into other modules or into the main
+  module
+* the file name is the module name with a .py at the end
+* `import` is use to import a module
+* `import` does not enter the names defined in a module directly
+* `import module` only enters the name `module`
+* using the module name, you can access the names defined in it with the `.`
+  operator
+
+## More on Modules
+
+* a module can contain also executable statements
+* these statements are intended to initialize the module
+* these are executed only the first time that the module name is encountered
+  in an import statement
+* each module has it's private symbol table
+* you can access and modify a module's global variables
+* modules can import other modules
+* usually all import statements are at the top of the file
+* `from module import name1, name2` directly imports name1 and name2 from
+  module
+* this does not introduce the module name
+* `from module import *` imports all names in the module, except those
+  beginning with _
+* the latter form of import, is not recommended
+* if the module name is followed by `as`, then the name following `as` is bound
+  directly to the imported module
+* this can be used also with `from`
+* to run a module use `pthon module.py <args>`
+* the variable `__name__` in the module will have value `"__main__"` when the 
+  module is executed
+
+### The Module Search Path
+
+* when a module is imported, the interpreter first searches for a built in
+  module
+* it then searches for a file with the module name, followed by .py, in a list
+  of directories given by the variable `sys.path`
+* `sys.path` is initialized from the following locations
+* the directory containing the script
+* `PYTHONPATH`, like `PATH`
+* the installation dependent default
+
+### "Compiled" Python files
+
+* to speed up module loading, Python caches the compiled version of each module
+  in the `__pycahce__` directory under the name `module.version.pyc`
+
+## Standard Modules
+
+* Python comes with a library of standard modules
+* standard modules are described [here](https://docs.python.org/3/library/index.html)
+
+## The `dir()` Function
+
+* `dir(module)` is used to find out which names a module defines
+* `dir()` lists all currently defined names
+* `dir()` does not list built-in names
+* they are defined in the standard module `builtins`
+
+## Packages
+
+* a package is a collection of modules
+* packages are a way of structuring Python's module namespace by using dotted
+  module names
+* the module name `A.B` designates a submodule named `B` in a package named `A`
+* the use of dotted module names saves the authors of multi module packages
+  from having to worry about each other's module names
+* the file `__init__.py` is required to make Python treat directories
+  containing the file as packages
+* `__init__.py` can be an empty file, but it can also execute initialization
+  code
+* users of a package can import individual modules from the package
+```python
+import sound.effects.echo
+```
+* the imported module must be referenced with its full name
+* the `from` keyword can also be used to make only the submodule available
+```python
+from sound.effects import echo
+```
+* `from` can be used to import single functions or variables
+
+### Intra-package References
+
+* when packages are structured into subpackages you can use absolute imports to
+  refer to submodules of siblings packages
+* relative imports can also be used with `..` and `.`
+
+### Packages in Multiple Directories
+
+* packages support a special attribute called `__path__`
+* this is a list of the names of the directory holding the package's
+  `__init__.py` before the code in that file is executed
+* this variable can be modified, affecting future searches for modules and
+  subpackages contained in the package
