@@ -319,3 +319,90 @@ del a[0]
 * del can be used to delete variables
 
 ## Tuples and Sequences
+
+* lists and strings are examples of sequence data types
+* another sequence data type is the tuple
+* a tuple is a number of values separated by commas
+```python
+t = 12345, 54321, `hell0!`
+```
+* tuples may be nested
+* it is not possible to assign to the individual items of a tuple
+* tuples are immutable
+* tuples usually contain a heterogeneous sequence of elements
+* lists are mutable and are usually omogeneous
+* `()` this is an empty tuple
+* `t = 'hello',` is a tuple with one item
+* tuples, like any other sequence, can be unpacked
+```python
+x, y, z = t
+```
+* sequence unpacking requires that there are as many variables on the left side
+  as there are elements in the sequence
+* multiple assignment is a combination of tuple packing and unpacking
+
+## Sets
+
+* a set is an unordered collection with no duplicate elements
+* sets support union `|`, intersection `&`, difference `-`, and symmetric 
+  difference `^`
+* `set()` or `{` can be used to create sets
+* `{}` this creates an empty dictionary
+```python
+basket = {`apple`, `orange`, `apple`, `pear`, `orange`, `banana`}
+# basket is {`orange`, `banana`, `pear`, `apple`}
+`orange` in basket
+# true
+`crabgrass` in basaket
+# false
+```
+* set comprehensions are supported
+
+## Dictionaries
+
+* dictionaries are indexed by keys
+* keys can be of any immutable type
+* `{}` is the empty dictionary
+* placing a comma separated list of key: vlaue pairs within curly braces adds
+  initial pairs to a dictionary
+* a pair can be deleted with `del`
+* `list(d)` on a dictionary returns all keys in the dictionary, in insertion
+  order
+* to check if a key is in the dictionary use `in`
+* `dict()` builds a dictionary from a sequence of key: value pairs
+* comprehensions can be used
+```python
+{x : x**2 for x in (2, 4, 6)}
+# {2: 4, 4: 16, 6: 36}
+```
+* when keys are strings, keyword arguments can be used with `dict()`
+
+## Looping Techniques
+
+* `items()` methods gets a sequence of key: value pairs of a dictionary
+* when looping through a sequence, the position index and the corresponding
+  value can be retrieved at the same time using the `enumerate()` function
+* to loop over two or more sequences at the same time, the entries can be
+  paired with the `zip()` function
+* to loop in reverse, use the `reverse()` function
+* to loop over a sequence in sorted order, use the `sorted()` function
+* when looping over a list, don't modify it; create a new one
+
+## More on Conditions
+
+* conditions can contain any operator
+* `in` and `not in` check if an element occour in a sequence
+* `is` and `is not` compare whether two objects are really the same
+* comparisons may be combined with `and`, `or`
+* a comparison may be negated with `not`
+* `and` and `or` short circuit
+* when not used as a Boolean, the return value of a short-circuit operator is
+  the last evaluated argument
+
+## Comparing Sequences and Other Types
+
+* sequence objects may be compared to other objects with the same sequence type
+* this comparison uses lexicographical ordering
+* if two items to be compared are themselves sequences of the same type, the
+  lexicographical comparison is carried out recursively
+
