@@ -505,3 +505,128 @@ from sound.effects import echo
   `__init__.py` before the code in that file is executed
 * this variable can be modified, affecting future searches for modules and
   subpackages contained in the package
+
+# Input and Output
+
+* `pint()`
+* `write()`
+
+## Fancier Output Formatting
+
+* formatted string literals begin with a `f` or a `F` before the opening
+  quotation mark. Inside the string, you can write a Python expression between
+  `{` and `}` that can refer to variables or literals
+```python
+year = 2016
+event = 'Referendum`
+f'Results of the {year} {event}'
+# is 'Results of the 2016 Referendum'
+```
+* the `str.format()` method
+* any value can be converted to string using `repr()` or `str()` functions
+* `str()` is for human readable output
+* `repr()` is for output that can be read by the interpreter
+* if there is no human readable output, `str()` will return the same as 
+  `repr()`
+
+### Formatted String Literals
+
+* are strings with `f` or `F` before the opening quotation mark
+* an optional format specifier can follow an expression
+* for a reference on formats check 
+  [here](https://docs.python.org/3/library/string.html#formatspec)
+
+### The String `format()` method
+
+* basic usage
+```python
+'We are the {} who say "{}!"'.format('knights', 'Ni')
+```
+* a number in the brackets refers to the index of the object in the argument
+  list
+* using keyword arguments in `format()`, their values are referred to by using
+  the name of the argument
+* positional and keyword args can be combined
+* [here](https://docs.python.org/3/library/string.html#formatstrings) is a
+  complete reference
+
+### Old String Formatting
+
+* is done with `%` operator inside strings
+
+## Reading and Writing Files
+
+* `open(filename, mode)` returns a file object
+* `mode` states the way the file will be used
+* `r` for reading
+* `w` for writing
+* `a` for appending
+* `r+` for both reading and writing
+* files are treated as text files
+* `b` appended to the mode treats files as binary
+* it is good practice to use the `with` keyword when dealing with file objects
+* with this the file is properly closed after its suite finishes, even if an
+  exception is raised
+* using `with` is much shorter than the `try`-`finally` blocks
+```python
+with open(`workfile`) as f:
+	read_data = f.read()
+```
+* if the `with` keyword is not used, `f.close()` must be called
+* after being closed, any attempt to use the file will fail
+
+### Methods of File Objects
+
+* we will assume that a file object called `f` has already been created
+* `f.read(size)` reads the file's contents
+* then `size` is omitted or negative, the entire contents of the file will be
+  returned
+* if the end of flie is reached, `read()` will return an empty string
+* `f.readline()` reads a single line from the file
+* if `f.readline()` returns an empty string, the end of file has been reached
+* a blank line is just `\n`
+* for reading a file, you can loop over the file object
+```python
+for line in f:
+	print(line, end='')
+```
+* this is fast, memory efficient, and simple
+* if you want to read all the lines in a list you can use `list(f)` or
+  `f.readlines()`
+* `f.write(string)` writes the contents of `string` to the file, returning the
+ number of characters written
+* `f.tell()` returns an integer giving the file object's current position in
+  the file represented as a number of bytes from the beginning of the file when
+  in binary mode and an opaque number when in text mode
+* `f.seek(offset, whence)` changes the file object's position
+* this position is computed adding offset to a reference point
+* `whence` selects the reference point
+* `0` is from the beginning
+* `1` uses the current file position
+* `2` is the end of the file
+* `whence` can be omitted and defaults to 0
+* in text files only seeks relative to the beginning of the file are allowed
+* an exception is `f.seek(0, 2)`
+
+### Saving structured data with `json`
+
+* when you want to save complex data types, parsing and serializing becomes
+  complicated
+* the standard module called `json` can take Python data hierarchies and
+  convert them to string representations
+* this is called serializing
+* reconstructing the data from the string representation is called 
+  deserializing
+```python
+import json
+json.dumps([1, 'simple', 'list'])
+# is '[1, "simple", "list"]'
+```
+* `json.dump(x, f)` serializes x and writes it into f
+* to decode the object use `x = json.load(f)`
+* this handles lists and dictionaries
+* for class instances see 
+  [here](https://docs.python.org/3/library/json.html#module-json)
+
+
+
